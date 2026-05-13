@@ -11,7 +11,7 @@ export class ResidentialZone extends Zone {
 
   constructor(x, y) {
     super(x, y);
-    this.name = generateBuildingName();
+    this.name = generateDwellingName();
     this.type = BuildingType.residential;
   }
 
@@ -43,14 +43,21 @@ export class ResidentialZone extends Zone {
   }
 }
 
-// Arrays of different name components
-const prefixes = ['Emerald', 'Ivory', 'Crimson', 'Opulent', 'Celestial', 'Enchanted', 'Serene', 'Whispering', 'Stellar', 'Tranquil'];
-const suffixes = ['Tower', 'Residence', 'Manor', 'Court', 'Plaza', 'House', 'Mansion', 'Place', 'Villa', 'Gardens'];
+// Medieval dwelling name components
+const prefixes = ['Stone', 'Oak', 'Willow', 'Iron', 'Silver', 'Golden', 'Raven', 'Wolf', 'Bear', 'Stag'];
+const suffixes = ['Cottage', 'Hall', 'Manor', 'Keep', 'Lodge', 'House', 'Haven', 'Stead', 'Dwelling', 'Hearth'];
+const locations = ['by the Brook', 'on the Hill', 'of the Vale', 'by the Woods', 'of the Moor', 'near the Mill', 'by the Well', 'of Eastgate', 'of Westholm', 'by the Cross'];
 
-// Function to generate a random building name
-function generateBuildingName() {
+// Function to generate a random medieval dwelling name
+function generateDwellingName() {
   const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
   const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+  
+  // 40% chance to add a location
+  if (Math.random() < 0.4) {
+    const location = locations[Math.floor(Math.random() * locations.length)];
+    return prefix + ' ' + suffix + ' ' + location;
+  }
   
   return prefix + ' ' + suffix;
 }

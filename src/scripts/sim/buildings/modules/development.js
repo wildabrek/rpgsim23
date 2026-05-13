@@ -145,12 +145,27 @@ export class DevelopmentModule extends SimModule {
    * @returns {string}
    */
     toHTML() {
+      // Medieval state display names
+      const stateNames = {
+        'abandoned': 'Ruined',
+        'developed': 'Thriving',
+        'under-construction': 'Under Construction',
+        'undeveloped': 'Vacant Land'
+      };
+      
+      // Medieval level names (prosperity tiers)
+      const levelNames = {
+        1: 'Common',
+        2: 'Prosperous', 
+        3: 'Noble'
+      };
+      
       return `
-        <span class="info-label">State </span>
-        <span class="info-value">${this.state}</span>
+        <span class="info-label">Condition </span>
+        <span class="info-value">${stateNames[this.state] || this.state}</span>
         <br>
-        <span class="info-label">Level </span>
-        <span class="info-value">${this.level}</span>
+        <span class="info-label">Prosperity </span>
+        <span class="info-value">${levelNames[this.level] || 'Tier ' + this.level}</span>
         <br>`;
     }
 }

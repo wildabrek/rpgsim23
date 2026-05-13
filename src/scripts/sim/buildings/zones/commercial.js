@@ -11,7 +11,7 @@ export class CommercialZone extends Zone {
 
   constructor(x, y) {
     super(x, y);
-    this.name = generateBusinessName();
+    this.name = generateMarketName();
     this.type = BuildingType.commercial;
   }
 
@@ -43,16 +43,26 @@ export class CommercialZone extends Zone {
   }
 }
 
-// Arrays of words for generating business names
-const prefixes = ['Prime', 'Elite', 'Global', 'Exquisite', 'Vibrant', 'Luxury', 'Innovative', 'Sleek', 'Premium', 'Dynamic'];
-const suffixes = ['Commerce', 'Trade', 'Marketplace', 'Ventures', 'Enterprises', 'Retail', 'Group', 'Emporium', 'Boutique', 'Mall'];
-const businessSuffixes = ['LLC', 'Inc.', 'Co.', 'Corp.', 'Ltd.'];
+// Medieval market/tavern name components
+const prefixes = ['The Prancing', 'The Golden', 'The Silver', 'The Rusty', 'The Jolly', 'The Wandering', 'The Dancing', 'The Sleeping', 'The Laughing', 'The Roaring'];
+const creatures = ['Dragon', 'Griffin', 'Phoenix', 'Unicorn', 'Stag', 'Boar', 'Fox', 'Raven', 'Lion', 'Bear'];
+const objects = ['Crown', 'Sword', 'Shield', 'Chalice', 'Harp', 'Rose', 'Oak', 'Star', 'Moon', 'Sun'];
+const establishments = ['Tavern', 'Inn', 'Market', 'Trading Post', 'Guild Hall', 'Merchant House', 'Emporium', 'Bazaar', 'Shop', 'Hall'];
 
-// Function to generate a random commercial business name
-function generateBusinessName() {
+// Function to generate a random medieval market/tavern name
+function generateMarketName() {
   const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-  const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
-  const businessSuffix = businessSuffixes[Math.floor(Math.random() * businessSuffixes.length)];
-
-  return prefix + ' ' + suffix + ' ' + businessSuffix;
+  
+  // 50% chance for creature name, 50% for object name
+  const subject = Math.random() < 0.5 
+    ? creatures[Math.floor(Math.random() * creatures.length)]
+    : objects[Math.floor(Math.random() * objects.length)];
+  
+  // 30% chance to add establishment type
+  if (Math.random() < 0.3) {
+    const establishment = establishments[Math.floor(Math.random() * establishments.length)];
+    return prefix + ' ' + subject + ' ' + establishment;
+  }
+  
+  return prefix + ' ' + subject;
 }

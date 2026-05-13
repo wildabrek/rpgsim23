@@ -76,13 +76,21 @@ export class Tile extends SimObject {
    * @returns {string} HTML representation of this object
    */
   toHTML() {
+    // Medieval terrain names
+    const terrainNames = {
+      'grass': 'Meadow',
+      'dirt': 'Barren Land',
+      'water': 'River',
+      'forest': 'Woodland'
+    };
+    
     let html = `
-      <div class="info-heading">Tile</div>
-      <span class="info-label">Coordinates </span>
+      <div class="info-heading">Land</div>
+      <span class="info-label">Location </span>
       <span class="info-value">X: ${this.x}, Y: ${this.y}</span>
       <br>
       <span class="info-label">Terrain </span>
-      <span class="info-value">${this.terrain}</span>
+      <span class="info-value">${terrainNames[this.terrain] || this.terrain}</span>
       <br>
     `;
 

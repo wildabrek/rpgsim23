@@ -84,7 +84,7 @@ export class JobsModule extends SimModule {
    * @returns {string}
    */
   toHTML() {
-    let html = `<div class="info-heading">Workers (${this.filledJobs}/${this.maxWorkers})</div>`;
+    let html = `<div class="info-heading">Craftsmen (${this.filledJobs}/${this.maxWorkers})</div>`;
 
     html += '<ul class="info-citizen-list">';
     for (const worker of this.workers) {

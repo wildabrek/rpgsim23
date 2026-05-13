@@ -11,7 +11,7 @@ export class IndustrialZone extends Zone {
 
   constructor(x, y) {
     super(x, y);
-    this.name = generateBusinessName();
+    this.name = generateWorkshopName();
     this.type = BuildingType.industrial;
   }
 
@@ -43,16 +43,21 @@ export class IndustrialZone extends Zone {
   }
 }
 
-// Arrays of words for generating business names
-const prefixes = ['Apex', 'Vortex', 'Elevate', 'Zenith', 'Nova', 'Synapse', 'Pulse', 'Enigma', 'Catalyst', 'Axiom'];
-const suffixes = ['Dynamics', 'Ventures', 'Solutions', 'Technologies', 'Innovations', 'Industries', 'Enterprises', 'Systems', 'Mechanics', 'Manufacturing'];
-const businessSuffixes = ['LLC', 'Inc.', 'Co.', 'Corp.', 'Ltd.'];
+// Medieval workshop/craft name components
+const ownerNames = ['Aldric', 'Bjorn', 'Cedric', 'Duncan', 'Edmund', 'Gareth', 'Harold', 'Magnus', 'Oswald', 'Wilhelm'];
+const crafts = ['Blacksmith', 'Armory', 'Forge', 'Tannery', 'Carpentry', 'Stoneworks', 'Pottery', 'Weaving', 'Brewery', 'Bakery'];
+const qualities = ['Master', 'Royal', 'Grand', 'Ancient', 'Renowned', 'Humble', 'Sturdy', 'Fine', 'Iron', 'Stone'];
 
-// Function to generate a random industrial business name
-function generateBusinessName() {
-  const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-  const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
-  const businessSuffix = businessSuffixes[Math.floor(Math.random() * businessSuffixes.length)];
-
-  return prefix + ' ' + suffix + ' ' + businessSuffix;
+// Function to generate a random medieval workshop name
+function generateWorkshopName() {
+  const craft = crafts[Math.floor(Math.random() * crafts.length)];
+  
+  // 60% chance for owner's name format, 40% for quality format
+  if (Math.random() < 0.6) {
+    const owner = ownerNames[Math.floor(Math.random() * ownerNames.length)];
+    return owner + "'s " + craft;
+  } else {
+    const quality = qualities[Math.floor(Math.random() * qualities.length)];
+    return "The " + quality + ' ' + craft;
+  }
 }

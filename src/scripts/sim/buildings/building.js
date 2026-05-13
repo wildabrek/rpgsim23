@@ -90,21 +90,31 @@ export class Building extends SimObject {
    * @returns {string}
    */
   toHTML() {
+    // Medieval type display names
+    const typeNames = {
+      'residential': 'Dwelling',
+      'commercial': 'Market',
+      'industrial': 'Workshop',
+      'road': 'Stone Path',
+      'power-plant': 'Mill',
+      'power-line': 'Watchtower'
+    };
+    
     let html = `
-      <div class="info-heading">Building</div>
+      <div class="info-heading">Structure</div>
       <span class="info-label">Name </span>
       <span class="info-value">${this.name}</span>
       <br>
       <span class="info-label">Type </span>
-      <span class="info-value">${this.type}</span>
+      <span class="info-value">${typeNames[this.type] || this.type}</span>
       <br>
-      <span class="info-label">Road Access </span>
-      <span class="info-value">${this.roadAccess.value}</span>
+      <span class="info-label">Path Access </span>
+      <span class="info-value">${this.roadAccess.value ? 'Connected' : 'Isolated'}</span>
       <br>`;
 
     if (this.power.required > 0) {
       html += `
-        <span class="info-label">Power (kW)</span>
+        <span class="info-label">Mill Power</span>
         <span class="info-value">${this.power.supplied}/${this.power.required}</span>
         <br>`;
     } 

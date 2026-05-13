@@ -99,10 +99,11 @@ export class Game {
   }
 
   /**
-   * Setup the lights for the scene
+   * Setup the lights for the scene - Medieval warm torchlight atmosphere
    */
   #setupLights() {
-    const sun = new THREE.DirectionalLight(0xffffff, 2)
+    // Main sunlight - warmer tone for medieval feel
+    const sun = new THREE.DirectionalLight(0xffe4c4, 1.8) // Warm bisque color
     sun.position.set(-10, 20, 0);
     sun.castShadow = true;
     sun.shadow.camera.left = -20;
@@ -115,7 +116,12 @@ export class Game {
     sun.shadow.camera.far = 50;
     sun.shadow.normalBias = 0.01;
     this.scene.add(sun);
-    this.scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    
+    // Warm ambient light for medieval atmosphere
+    this.scene.add(new THREE.AmbientLight(0xd4a574, 0.4)); // Warm tan color
+    
+    // Add subtle fog for atmosphere
+    this.scene.fog = new THREE.Fog(0x2a1f0d, 15, 40);
   }
   
   /**

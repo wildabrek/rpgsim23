@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <title>Kingdom Builder - Medieval RPG</title>
   <link rel="stylesheet" href="/main.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <script type="module" src="./scripts/game.js"></script>
@@ -15,27 +16,29 @@
     <div id="render-target"></div>
     <div id="loading" class="text-overlay">
       <div>
-        LOADING...
+        PREPARING THY KINGDOM...
       </div>
     </div>
     <div id="paused-text" class="text-overlay" style="visibility: hidden;">
       <div>
-        PAUSED
+        REALM FROZEN
       </div>
     </div>
     <div id="ui">
       <div id="title-bar">
         <div class="title-bar-left-items title-bar-items">
-          $1000
+          <img id="gold-icon" src="/icons/gold.png">
+          <span id="gold-counter">1000</span>
         </div>
         <div class="title-bar-center-items title-bar-items">
-          <span id="city-name">My City</span>
+          <span id="city-name">My Kingdom</span>
           <span>&nbsp;-&nbsp;</span>
-          <span id="sim-time">1/1/2023</span>
+          <span id="sim-time">Year 1</span>
         </div>
         <div class="title-bar-right-items title-bar-items">
-          <img id="population-icon" src="/icons/person.png">
+          <img id="population-icon" src="/icons/knight.png">
           <span id="population-counter">0</span>
+          <span class="label">Subjects</span>
         </div>
       </div>
       <div id="ui-toolbar" class="container">
@@ -45,31 +48,37 @@
         </button>
         <button id='button-bulldoze' class="ui-button" data-type="bulldoze"
           onclick="ui.onToolSelected(event)">
-          <img class="toolbar-icon" src="/icons/bulldozer-color.png">
+          <img class="toolbar-icon" src="/icons/sword.png">
         </button>
         <button id='button-residential' class="ui-button" data-type="residential"
           onclick="ui.onToolSelected(event)">
-          <img class="toolbar-icon" src="/icons/house-color.png">
+          <img class="toolbar-icon" src="/icons/castle.png">
+          <span class="tooltip">Dwelling</span>
         </button>
         <button id='button-commercial' class="ui-button" data-type="commercial"
           onclick="ui.onToolSelected(event)">
-          <img class="toolbar-icon" src="/icons/store-color.png">
+          <img class="toolbar-icon" src="/icons/tavern.png">
+          <span class="tooltip">Market</span>
         </button>
         <button id='button-industrial' class="ui-button" data-type="industrial"
           onclick="ui.onToolSelected(event)">
-          <img class="toolbar-icon" src="/icons/factory-color.png">
+          <img class="toolbar-icon" src="/icons/blacksmith.png">
+          <span class="tooltip">Workshop</span>
         </button>
         <button id='button-road' class="ui-button" data-type="road"
           onclick="ui.onToolSelected(event)">
-          <img class="toolbar-icon" src="/icons/road-color.png">
+          <img class="toolbar-icon" src="/icons/path.png">
+          <span class="tooltip">Path</span>
         </button>
         <button id='button-power-plant' class="ui-button" data-type="power-plant"
           onclick="ui.onToolSelected(event)">
-          <img class="toolbar-icon" src="/icons/power-color.png">
+          <img class="toolbar-icon" src="/icons/mill.png">
+          <span class="tooltip">Mill</span>
         </button>
         <button id='button-power-line' class="ui-button" data-type="power-line"
         onclick="ui.onToolSelected(event)">
-        <img class="toolbar-icon" src="/icons/power-line-color.png">
+        <img class="toolbar-icon" src="/icons/watchtower.png">
+        <span class="tooltip">Tower</span>
       </button>
         <button id='button-pause' class="ui-button" onclick="ui.togglePause()">
           <img id='pause-button-icon' class="toolbar-icon" src="/icons/pause-color.png">
@@ -78,13 +87,13 @@
       <div id="info-panel" class="container">
       </div>
       <div id="instructions">
-        INTERACT - Left Mouse<br>
-        ROTATE - Right Mouse<br>
-        PAN - Control + Right Mouse<br>
+        SELECT - Left Mouse<br>
+        ROTATE VIEW - Right Mouse<br>
+        PAN - Ctrl + Right Mouse<br>
         ZOOM - Scroll
       </div>
       <div id="version">
-        v0.3.0
+        Kingdom Builder v1.0
       </div>
     </div>
   </div>

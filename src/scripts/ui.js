@@ -68,9 +68,19 @@ export class GameUI {
     document.getElementById('city-name').innerHTML = game.city.name;
     document.getElementById('population-counter').innerHTML = game.city.population;
 
-    const date = new Date('1/1/2023');
-    date.setDate(date.getDate() + game.city.simTime);
-    document.getElementById('sim-time').innerHTML = date.toLocaleDateString();
+    // Medieval year system - start at year 1 of the kingdom
+    const startYear = 1;
+    const year = startYear + Math.floor(game.city.simTime / 365);
+    const day = (game.city.simTime % 365) + 1;
+    
+    // Medieval seasons
+    let season = '';
+    if (day <= 91) season = 'Spring';
+    else if (day <= 182) season = 'Summer';
+    else if (day <= 273) season = 'Autumn';
+    else season = 'Winter';
+    
+    document.getElementById('sim-time').innerHTML = `Year ${year}, ${season}`;
   }
 
   /**

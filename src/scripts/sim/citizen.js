@@ -18,7 +18,7 @@ export class Citizen {
      * Name of this citizen
      * @type {string}
      */
-    this.name = generateRandomName();
+    this.name = generateMedievalName();
 
     /**
      * Age of the citizen in years
@@ -28,7 +28,7 @@ export class Citizen {
 
     /**
      * The current state of the citizen
-     * @type {'idle' | 'school' | 'employed' | 'unemployed' | 'retired'}
+     * @type {'idle' | 'apprentice' | 'employed' | 'unemployed' | 'elder'}
      */
     this.state = 'idle';
 
@@ -57,9 +57,9 @@ export class Citizen {
    */
   #initializeState() {
     if (this.age < config.citizen.minWorkingAge) {
-      this.state = 'school';
+      this.state = 'apprentice';
     } else if (this.age >= config.citizen.retirementAge) {
-      this.state = 'retired';
+      this.state = 'elder';
     } else {
       this.state = 'unemployed';
     }
@@ -72,15 +72,15 @@ export class Citizen {
   simulate(city) {
     switch (this.state) {
       case 'idle':
-      case 'school':
-      case 'retired':
+      case 'apprentice':
+      case 'elder':
         // Action - None
 
         // Transitions - None
 
         break;
       case 'unemployed':
-        // Action - Look for a job
+        // Action - Look for work
         this.workplace = this.#findJob(city);
 
         // Transitions
@@ -151,10 +151,33 @@ export class Citizen {
   }
 
   /**
+   * Returns the title/role of this citizen
+   * @returns {string}
+   */
+  getTitle() {
+    if (this.state === 'apprentice') return 'Young Apprentice';
+    if (this.state === 'elder') return 'Village Elder';
+    if (this.state === 'employed') {
+      if (this.workplace?.type === 'industrial') return 'Craftsman';
+      if (this.workplace?.type === 'commercial') return 'Merchant';
+      return 'Worker';
+    }
+    return 'Peasant';
+  }
+
+  /**
    * Returns an HTML representation of this object
    * @returns {string}
    */
   toHTML() {
+    const stateDisplay = {
+      'idle': 'Wandering',
+      'apprentice': 'Training',
+      'employed': this.getTitle(),
+      'unemployed': 'Seeking Work',
+      'elder': 'Resting'
+    };
+
     return `
       <li class="info-citizen">
         <span class="info-citizen-name">${this.name}</span>
@@ -162,11 +185,11 @@ export class Citizen {
         <span class="info-citizen-details">
           <span>
             <img class="info-citizen-icon" src="/icons/calendar.png">
-            ${this.age} 
+            ${this.age} winters
           </span>
           <span>
             <img class="info-citizen-icon" src="/icons/job.png">
-            ${this.state}
+            ${stateDisplay[this.state] || this.state}
           </span>
         </span>
       </li>
@@ -174,21 +197,31 @@ export class Citizen {
   }
 }
 
-function generateRandomName() {
+function generateMedievalName() {
   const firstNames = [
-    'Emma', 'Olivia', 'Ava', 'Sophia', 'Isabella',
-    'Liam', 'Noah', 'William', 'James', 'Benjamin',
-    'Elizabeth', 'Margaret', 'Alice', 'Dorothy', 'Eleanor',
-    'John', 'Robert', 'William', 'Charles', 'Henry',
-    'Alex', 'Taylor', 'Jordan', 'Casey', 'Robin'
+    // Male names
+    'Aldric', 'Baldwin', 'Cedric', 'Duncan', 'Edmund',
+    'Gareth', 'Harold', 'Ivar', 'Jasper', 'Leofric',
+    'Magnus', 'Oswald', 'Percival', 'Roland', 'Siegfried',
+    'Thorin', 'Ulric', 'Wilhelm', 'Yorick', 'Alaric',
+    // Female names
+    'Adelina', 'Beatrice', 'Clarice', 'Elspeth', 'Gwendolyn',
+    'Helena', 'Isolde', 'Juliana', 'Matilda', 'Rosalind',
+    'Adelaide', 'Brunhilde', 'Constance', 'Elowen', 'Freya',
+    'Guinevere', 'Hildegard', 'Ingrid', 'Morgana', 'Rowena'
   ];
 
   const lastNames = [
-    'Smith', 'Johnson', 'Williams', 'Jones', 'Brown',
-    'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor',
-    'Anderson', 'Thomas', 'Jackson', 'White', 'Harris',
-    'Clark', 'Lewis', 'Walker', 'Hall', 'Young',
-    'Lee', 'King', 'Wright', 'Adams', 'Green'
+    // Occupation-based
+    'Blacksmith', 'Fletcher', 'Cooper', 'Thatcher', 'Miller',
+    'Baker', 'Carpenter', 'Mason', 'Weaver', 'Tanner',
+    // Location-based
+    'of Ironwood', 'of Stonehill', 'of Ravenshollow', 'of Oakdale', 'of Thornbury',
+    // Descriptive
+    'the Bold', 'the Wise', 'the Swift', 'the Strong', 'the Fair',
+    // Family names
+    'Ironforge', 'Stormwind', 'Brightwood', 'Darkwater', 'Goldleaf',
+    'Silverhammer', 'Whitestone', 'Redoak', 'Greymane', 'Blackwood'
   ];
 
   const randomFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
